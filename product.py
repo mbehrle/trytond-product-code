@@ -2,6 +2,8 @@
 # this repository contains the full copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool, PoolMeta
+from trytond import backend
+from trytond.transaction import Transaction
 
 __all__ = ['Product', 'ProductCode']
 __metaclass__ = PoolMeta
@@ -53,41 +55,54 @@ class ProductCode(ModelSQL, ModelView):
     def __setup__(cls):
         super(ProductCode, cls).__setup__()
         cls._error_messages.update({
-            'wrong_code': 'The code entered is wrong.'
-            '\nFor EAN, length should be 13.'
-            '\nFor UPC-A, length should be 12.'
+            'wrong_code_length_ean': 'Wrong code length:'
+            '\nFor EAN, length should be 13.',
+            'wrong_code_length_upc': 'Wrong code length:'
+            '\nFor UPC-A, length should be 12.',
+            'code_unique': 'Duplicate code:'
+            '\nThe code "%(code)s" with type "%(code_type)s" already exists.',
         })
-        # XXX: The uniqueness should be global or based on code type.
-        # But its a problem to worry about later
-        cls._sql_constraints = [(
-            'code_uniq', 'UNIQUE(code)',
-            'Another code with the same value already exists!'
-        )]
 
-    def check_code(self):
-        '''
-        Check the length of the code depending on type.
-        EAN should be 13 characters
-        UPC-A should be 12 characters
-        '''
-        if self.code_type == 'ean' and len(self.code) != 13:
-            self.raise_user_error('wrong_code')
-        if self.code_type == 'upc-a' and len(self.code) != 12:
-            self.raise_user_error('wrong_code')
+    @classmethod
+    def __register__(cls, module_name):
+        TableHandler = backend.get('TableHandler')
+        cursor = Transaction().cursor
 
-        return True
+        super(ProductCode, cls).__register__(module_name)
+
+        table = TableHandler(cursor, cls, module_name)
+        # Migration from 3.4: Drop sql constraint in favor of validate
+        table.drop_constraint('code_uniq')
+
+    @classmethod
+    def validate(cls, records):
+        super(ProductCode, cls).validate(records)
+        cls.check_code(records)
+
+    @classmethod
+    def check_code(cls, records):
+        '''
+        Check the code length and uniqueness:
+        EAN should be 13 characters and unique
+        UPC-A should be 12 characters and unique
+        '''
+        for record in records:
+            if record.code_type == 'ean' and len(record.code) != 13:
+                record.raise_user_error('wrong_code_length_ean')
+            if record.code_type == 'upc-a' and len(record.code) != 12:
+                record.raise_user_error('wrong_code_length_upc')
+            for type in ['ean', 'upc-a']:
+                codes = cls.search([
+                        ('id', '!=', record.id),
+                        ('code', '=', record.code),
+                        ('code_type', '=', type),
+                        ])
+                if codes:
+                    cls.raise_user_error('code_unique', {
+                            'code': record.code,
+                            'code_type': record.code_type,
+                            })
 
     @staticmethod
     def default_active():
         return True
-
-    @classmethod
-    def validate(cls, records):
-        """
-        Validate records.
-
-        :param records: active record list of productcode objects
-        """
-        super(ProductCode, cls).validate(records)
-        for record in records:
-            record.check_code()
