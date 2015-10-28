@@ -1,0 +1,91 @@
+#
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:product.product.code:"
+msgid ""
+"Duplicate code:\n"
+"The code \"%(code)s\" with type \"%(code_type)s\" already exists."
+msgstr ""
+"Codeduplikat:\n"
+"Der Code \"%(code)s\" mit Type \"%(code_type)s\" existiert bereits."
+
+msgctxt "error:product.product.code:"
+msgid ""
+"Wrong code length:\n"
+"For EAN, length should be 13."
+msgstr ""
+"Falsche Codelänge:\n"
+"EAN codes müssen 13 Ziffern aufweisen."
+
+msgctxt "error:product.product.code:"
+msgid ""
+"Wrong code length:\n"
+"For UPC-A, length should be 12."
+msgstr ""
+"Falsche Codelänge:\n"
+"UPC-A codes müssen 12 Ziffern aufweisen."
+
+msgctxt "field:product.product,codes:"
+msgid "Codes"
+msgstr "Codes"
+
+msgctxt "field:product.product.code,active:"
+msgid "Active"
+msgstr "Aktiv"
+
+msgctxt "field:product.product.code,code:"
+msgid "Value"
+msgstr "Wert"
+
+msgctxt "field:product.product.code,code_type:"
+msgid "Type"
+msgstr "Typ"
+
+msgctxt "field:product.product.code,create_date:"
+msgid "Create Date"
+msgstr "Erstellungsdatum"
+
+msgctxt "field:product.product.code,create_uid:"
+msgid "Create User"
+msgstr "Erstellt durch"
+
+msgctxt "field:product.product.code,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.product.code,product:"
+msgid "Product"
+msgstr "Artikel"
+
+msgctxt "field:product.product.code,rec_name:"
+msgid "Name"
+msgstr "Name"
+
+msgctxt "field:product.product.code,write_date:"
+msgid "Write Date"
+msgstr "Zuletzt geändert"
+
+msgctxt "field:product.product.code,write_uid:"
+msgid "Write User"
+msgstr "Letzte Änderung durch"
+
+msgctxt "model:product.product.code,name:"
+msgid "Product Code"
+msgstr "Artikelcode"
+
+msgctxt "selection:product.product.code,code_type:"
+msgid "EAN"
+msgstr "EAN"
+
+msgctxt "selection:product.product.code,code_type:"
+msgid "Other"
+msgstr "Anderer"
+
+msgctxt "selection:product.product.code,code_type:"
+msgid "UPC-A"
+msgstr "UPC-A"
+
+msgctxt "view:product.product.code:"
+msgid "Product Code"
+msgstr "Artikelcode"
