@@ -48,7 +48,8 @@ class ProductCode(ModelSQL, ModelView):
     ], 'Type', required=True)
     active = fields.Boolean('Active')
     product = fields.Many2One(
-        'product.product', 'Product', ondelete='CASCADE', select=True
+        'product.product', 'Product', ondelete='CASCADE', select=True,
+        required=True
     )
 
     @classmethod
