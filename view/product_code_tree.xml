@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<tree string="Product Code">
+    <field name="code"/>
+    <field name="code_type"/>
+    <field name="product"/>
+    <field name="active"/>
+</tree>
