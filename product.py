@@ -34,6 +34,14 @@ class Product:
 
         return [('id', 'in', ids)]
 
+    @classmethod
+    def copy(cls, products, default=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default.setdefault('codes', None)
+        return super(Product, cls).copy(products, default=default)
+
 
 class ProductCode(ModelSQL, ModelView):
     "Product Code"
