@@ -17,8 +17,6 @@ class Product:
 
     @classmethod
     def search_rec_name(cls, name, clause):
-        Product = Pool().get('product.product')
-
         domain = super(Product, cls).search_rec_name(name, clause)
         domain.append(('codes.code', ) + tuple(clause[1:]))
         return domain
