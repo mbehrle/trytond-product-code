@@ -69,7 +69,7 @@ setup(
     description='Tryton module for adding multiple product codes',
     long_description=read('README.rst'),
     author='Openlabs Technologies & Consulting (P) Limited',
-    url='https://github.com/openlabs/trytond-product-code',
+    url='https://github.com/fulfilio/trytond-product-code',
     package_dir={'trytond.modules.product_code': '.'},
     packages=[
         'trytond.modules.product_code',
@@ -94,7 +94,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Office/Business',
     ],
-    license='GPL-3',
+    license='BSD',
     install_requires=requires,
     zip_safe=False,
     entry_points="""
