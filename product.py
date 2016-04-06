@@ -1,7 +1,7 @@
 # This file is part of Tryton.  The COPYRIGHT file at the top level of
 # this repository contains the full copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pool import Pool, PoolMeta
+from trytond.pool import PoolMeta
 
 __all__ = ['Product', 'ProductCode']
 __metaclass__ = PoolMeta
@@ -20,6 +20,18 @@ class Product:
         domain = super(Product, cls).search_rec_name(name, clause)
         domain.append(('codes.code', ) + tuple(clause[1:]))
         return domain
+
+    @classmethod
+    def copy(cls, products, default=None):
+        """
+        Ignore codes from copy
+        """
+        if default is None:
+            default = {}
+        default = default.copy()
+        default['codes'] = None
+
+        return super(Product, cls).copy(products, default)
 
 
 class ProductCode(ModelSQL, ModelView):
