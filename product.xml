@@ -5,19 +5,19 @@ copyright notices and license terms. -->
     <data>
         <record model="ir.ui.view" id="product_view_form">
             <field name="model">product.product</field>
-            <field name="type">form</field>
+            <field name="type" eval="None"/>
             <field name="inherit" ref="product.product_view_form"/>
             <field name="name">product_form</field>
         </record>
 
         <record model="ir.ui.view" id="product_code_view_form">
             <field name="model">product.product.code</field>
-            <field name="type">form</field>
+	    <field name="type">form</field>
 	    <field name="name">product_code_form</field>
         </record>
         <record model="ir.ui.view" id="product_code_view_tree">
             <field name="model">product.product.code</field>
-            <field name="type">tree</field>
+	    <field name="type">tree</field>
 	    <field name="name">product_code_tree</field>
         </record>
     </data>

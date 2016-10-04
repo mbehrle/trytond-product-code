@@ -1,14 +1,14 @@
 # This file is part of Tryton.  The COPYRIGHT file at the top level of
 # this repository contains the full copyright notices and license terms.
+from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import PoolMeta
 
 __all__ = ['Product', 'ProductCode']
-__metaclass__ = PoolMeta
 
 
 class Product:
-    "Product"
+    __metaclass__ = PoolMeta
     __name__ = 'product.product'
 
     codes = fields.One2Many(
@@ -62,11 +62,10 @@ class ProductCode(ModelSQL, ModelView):
     @classmethod
     def __register__(cls, module_name):
         TableHandler = backend.get('TableHandler')
-        cursor = Transaction().cursor
 
         super(ProductCode, cls).__register__(module_name)
 
-        table = TableHandler(cursor, cls, module_name)
+        table = TableHandler(cls, module_name)
         # Migration from 3.4: Drop sql constraint in favor of validate
         table.drop_constraint('code_uniq')
 
